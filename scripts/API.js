@@ -38,7 +38,7 @@ exports.Initialise = function (AClient)
  */
 exports.Request = function (ARequest, ACallback)
 {
-    ARequest = ARequest..replace(/^\/+/g, ''); //Remove leading slash.
+    ARequest = ARequest.replace(/^\/+/g, ''); //Remove leading slash.
 
     let Params = ARequest.split('/');
     let Command = Params[0];
