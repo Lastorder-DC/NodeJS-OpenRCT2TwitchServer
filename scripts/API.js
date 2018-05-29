@@ -38,7 +38,7 @@ exports.Initialise = function (AClient)
  */
 exports.Request = function (ARequest, ACallback)
 {
-    ARequest = ARequest.substr(1); //Remove leading slash.
+    ARequest = ARequest..replace(/^\/+/g, ''); //Remove leading slash.
 
     let Params = ARequest.split('/');
     let Command = Params[0];
@@ -51,6 +51,9 @@ exports.Request = function (ARequest, ACallback)
             break;
         case 'channel':
             ChannelRequest(Params, ACallback);
+            break;
+        case 'favicon.ico':
+            FaviconRequest(ARequest, ACallback);
             break;
         default:
             UnknownRequest(ARequest, ACallback);
@@ -242,4 +245,14 @@ function UnknownRequest (ARequest, ACallback)
 {
     console.log('Unknown request: ' + ARequest);
     ACallback({ status: 500 });
+}
+
+/**
+ * Handles favicon.ico requests.
+ * @param {String} ARequest A string that represents the request.
+ * @param {Function} ACallback The callback function called when the return data is available. 
+ */
+function FaviconRequest (ARequest, ACallback)
+{
+    ACallback({ status: 404 });
 }
